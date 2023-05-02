@@ -3,6 +3,8 @@ import pygame.gfxdraw
 from pygame.locals import *
 from pygame.math import Vector3 as vec3
 
+# from vec3 import vec3
+
 from math import sqrt, radians
 from random import random, uniform
 
@@ -60,11 +62,16 @@ def clamp(x, mn, mx):
 
 def write_color(surf, x, y, pixel_color, samples_per_pixel):
     scale = 1.0 / samples_per_pixel
-    pixel_color *= scale
+
+    pixel_color.x = sqrt(scale * pixel_color.x)
+    pixel_color.y = sqrt(scale * pixel_color.y)
+    pixel_color.z = sqrt(scale * pixel_color.z)
     
     pixel_color.x = clamp(pixel_color.x, 0, 0.999)
     pixel_color.y = clamp(pixel_color.y, 0, 0.999)
     pixel_color.z = clamp(pixel_color.z, 0, 0.999)
+
+
 
     pygame.gfxdraw.pixel(surf, x, y, get_display_color(pixel_color))
 
@@ -90,6 +97,8 @@ aspect_ratio = 16 / 9
 image_width = 400
 image_height = int(image_width / aspect_ratio)
 screen = pygame.display.set_mode((image_width, image_height))
+screen.fill('white')
+
 samples_per_pixel = 100
 max_depth = 50
 

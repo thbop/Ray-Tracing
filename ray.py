@@ -1,5 +1,3 @@
-import pygame
-from pygame.math import Vector3 as vec3
 
 class ray:
     def __init__(self, origin, direction):
